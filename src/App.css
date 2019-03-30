@@ -1,37 +1,85 @@
-/* .App {
-  text-align: center;
+h4{
+  margin: 0
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.imagecontainer, .mainmenu{
+  /* width: 940px;
+  margin: 10px auto; */
+  padding:20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.tilecontainer{
+  position: relative;
+  margin-top:5px;
+  background-color: #eee;
 }
 
-.App-link {
-  color: #61dafb;
+.tile img{
+  max-width:100%;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 
 .tags{
   color: red;
+}
+
+button{
+  background-color: gray;
+	color: white;
+	width: 150px;
+	height: 40px;
+}
+button.active{
+  background-color: green;
+	
+}
+
+.tilecontent{
+  padding:20px;
+}
+
+.tagicon{
+  position: absolute;
+  top:-5px;
+  left:20px;
+  /* margin-top: -5px;
+  margin-left: 8px; */
+}
+
+@media (min-width: 320px){
+  .tile{ 
+    
+    display: inline-block;
+    margin: 0 0 1em;
+    
+    width: 100%;  
+  }
+}
+
+@media (min-width: 375px){
+  
+}
+
+@media (min-width: 576px){
+  .socialwall { 
+    column-count: 2;
+    column-gap: 1em;
+  }
+}
+
+@media (min-width: 768px){
+  .socialwall { 
+    column-count: 3;
+    column-gap: 1em;
+  }
+  
+  
+}
+@media (min-width: 992px){
+  .socialwall { 
+    column-count: 6;
+    column-gap: 1em;
+  }
+}
+@media (min-width: 1200px){
+  
 }
