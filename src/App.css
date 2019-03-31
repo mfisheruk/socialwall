@@ -1,21 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:700i');
+
 h4{
   margin: 0
 }
 
+.mainmenu{
+  display: flex;
+  flex-direction: row;
+  
+  background-color: black;
+  color: #fff;
+  justify-content: space-between
+}
+
+.mainmenu h3{
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8em;
+}
+
+.filter{
+  display: flex;
+  
+}
+
+.imagecontainer{
+  background-color: #eee;
+}
+
 .imagecontainer, .mainmenu{
-  /* width: 940px;
-  margin: 10px auto; */
   padding:20px;
 }
+
+.imagecontent p, .imagecontent a{
+  /* These are technically the same, but use both */
+overflow-wrap: break-word;
+word-wrap: break-word;
+
+-ms-word-break: break-all;
+/* This is the dangerous one in WebKit, as it breaks things wherever */
+word-break: break-all;
+/* Instead use this non-standard one: */
+word-break: break-word;
+
+/* Adds a hyphen where the word breaks, if supported (No Blink) */
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+}
+
+
 
 .tilecontainer{
   position: relative;
   margin-top:5px;
-  background-color: #eee;
+  background-color: #fff;
+  border:1px solid #e0e0e0;
 }
 
-.tile img{
-  max-width:100%;
+.imageblock img{
+  display: block;
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto; 
 }
 
 .tags{
@@ -23,13 +72,22 @@ h4{
 }
 
 button{
-  background-color: gray;
+  background-color: #333;
 	color: white;
 	width: 150px;
-	height: 40px;
+  height: 40px;
+  border-top: 1px solid #4c4c4c;
+  border-bottom: 1px solid #4c4c4c;
+  border-left: 1px solid #4c4c4c;
+  border-right: none;
 }
+
+button:last-child{
+  border-right: 1px solid #4c4c4c;
+}
+
 button.active{
-  background-color: green;
+  background-color: #4c4c4c;
 	
 }
 
@@ -45,6 +103,11 @@ button.active{
   margin-left: 8px; */
 }
 
+.timestamp{
+  font-size: 0.8em;
+  color:#afa7a7;
+}
+
 @media (min-width: 320px){
   .tile{ 
     
@@ -56,30 +119,44 @@ button.active{
 }
 
 @media (min-width: 375px){
-  
+  button{    
+    width: auto;
+    height: 40px;
+    padding-left:15px;
+    padding-right:15px;
+  }
 }
 
 @media (min-width: 576px){
   .socialwall { 
     column-count: 2;
     column-gap: 1em;
-  }
+  }  
 }
 
 @media (min-width: 768px){
+  
   .socialwall { 
-    column-count: 3;
-    column-gap: 1em;
+    column-count: 3;    
   }
-  
-  
 }
 @media (min-width: 992px){
   .socialwall { 
-    column-count: 6;
-    column-gap: 1em;
-  }
+    column-count: 4;    
+  } 
 }
 @media (min-width: 1200px){
-  
+  button{
+    background-color: #333;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border-top: 1px solid #4c4c4c;
+    border-bottom: 1px solid #4c4c4c;
+    border-left: 1px solid #4c4c4c;
+    border-right: none;
+  }
+  .socialwall { 
+    column-count: 5;    
+  }
 }

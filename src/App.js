@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import instagramLogo from './images/glyph-logo_May2016.png'
 import twitterLogo from './images/Twitter_Logo_Blue.png'
+import bullringLogo from './images/bullringlogo.png'
 import afftag from './images/afftag.png'
 import instagramtag from './images/instagramtag.png'
 import twittertag from './images/twittertag.png'
@@ -13,12 +13,12 @@ class App extends Component {
     this.state = {
       feedData : [],
       currentFilter: "",
+      timestamp: new Date().toLocaleTimeString('en-GB', { hour: "numeric", minute: "numeric"}),
       isLoaded : true      
     }
   }  
 
-  componentDidMount(){     
-    //console.log("hit didmount")   
+  componentDidMount(){  
     this.getFeedData();    
   } 
 
@@ -26,8 +26,7 @@ class App extends Component {
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
-        .then(resitems => resitems.items)    
-        //.then(feedData => this.setState({feedData: [...this.state.feedData, feedData]})    
+        .then(resitems => resitems.items)
         .then(feedData=> this.setState({feedData: feedData}))  
         .then(this.setState({currentFilter : ""}, function(){console.log(this.state.currentFilter)}))
     }
@@ -41,7 +40,6 @@ class App extends Component {
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
         .then(resitems => resitems.items.filter(tweet => tweet.service_name === "Twitter"))    
-        //.then(feedData => this.setState({feedData: [...this.state.feedData, feedData]})    
         .then(feedData=> this.setState({feedData: feedData})) 
         .then(this.setState({currentFilter : "Twitter"}, function(){console.log(this.state.currentFilter)})) 
         
@@ -51,18 +49,11 @@ class App extends Component {
     }    
   }
 
-  // filterTweets(){
-  //   var tweets = this.state.allData.filter(tweet => tweet.service_name == "Twitter")
-  //   console.log(tweets);
-  //   this.setState({feedData : tweets})
-  // }
-
   filterManualFeeds = async(req, res) => {
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
-        .then(resitems => resitems.items.filter(tweet => tweet.service_name === "Manual"))    
-        //.then(feedData => this.setState({feedData: [...this.state.feedData, feedData]})    
+        .then(resitems => resitems.items.filter(tweet => tweet.service_name === "Manual"))  
         .then(feedData=> this.setState({feedData: feedData}))  
         .then(this.setState({currentFilter : "Manual"}, function(){console.log(this.state.currentFilter)}))
     }
@@ -71,19 +62,11 @@ class App extends Component {
     }    
   }
 
-  // filterManualFeeds(){
-  //   //this.getFeedData();
-  //   var manualFeeds = this.state.feedData.filter(manual => manual.service_name == "Manual")
-  //   console.log(manualFeeds);
-  //   this.setState({feedData : manualFeeds})
-  // }
-
   filterInstagram = async(req, res) => {
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
-        .then(resitems => resitems.items.filter(tweet => tweet.service_name === "Instagram"))    
-        //.then(feedData => this.setState({feedData: [...this.state.feedData, feedData]})    
+        .then(resitems => resitems.items.filter(tweet => tweet.service_name === "Instagram"))  
         .then(feedData=> this.setState({feedData: feedData}))  
         .then(this.setState({currentFilter : "Instagram"}, function(){console.log(this.state.currentFilter)}))
     }
@@ -99,10 +82,7 @@ class App extends Component {
   //   this.setState({feedData : insta})
   // }
 
-  getMoreFeeds = async(req, res) => {
-    console.log(this.state.feedData)
-    console.log(this.state.currentFilter)
-    //var currentRecords = this.state.feedData;
+  getMoreFeeds = async(req, res) => {    
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
@@ -115,10 +95,10 @@ class App extends Component {
   }
 
   addDefaultSrc(feedtype, e){  
-    var imageFallback = 'https://www.bullring.co.uk/Data/skins/vicinitee-bullring-web-10years/images/logo.png?v=1';
+    var imageFallback = bullringLogo;
     switch(feedtype) {
       case "":
-        imageFallback = 'https://www.bullring.co.uk/Data/skins/vicinitee-bullring-web-10years/images/logo.png?v=1'
+        imageFallback = bullringLogo
         break;
       case "Twitter":
         imageFallback = twitterLogo
@@ -127,7 +107,7 @@ class App extends Component {
         imageFallback = instagramLogo
         break;
       default:
-        imageFallback = 'https://www.bullring.co.uk/Data/skins/vicinitee-bullring-web-10years/images/logo.png?v=1'
+        imageFallback = bullringLogo
     }
 
     e.target.src = imageFallback    
@@ -144,10 +124,11 @@ class App extends Component {
         <div className="mainmenu">
           <h3>Autumn Fashion Fix</h3>
 
+        <div className="filters">
           <button onClick={() => this.getFeedData()} className={this.state.currentFilter === "" ? "active": ""}>All Feeds</button>
-          <button onClick={() => this.filterTweets()} className={this.state.currentFilter === "Twitter" ? "active": ""}>Filter Tweets</button>
-          <button onClick={() => this.filterManualFeeds()} className={this.state.currentFilter === "Manual" ? "active": ""}>Filter Manual feeds</button>
-          <button onClick={() => this.filterInstagram()} className={this.state.currentFilter === "Instagram" ? "active": ""}>Filter Instagram</button>
+          <button onClick={() => this.filterTweets()} className={this.state.currentFilter === "Twitter" ? "active": ""}>Tweets</button>
+          <button onClick={() => this.filterManualFeeds()} className={this.state.currentFilter === "Manual" ? "active": ""}>Manual feeds</button>
+          <button onClick={() => this.filterInstagram()} className={this.state.currentFilter === "Instagram" ? "active": ""}>Instagram</button>
 
           {/* <form onSubmit={this.getFeedData}>
             <label>
@@ -167,7 +148,8 @@ class App extends Component {
               Instagram
             </label>            
           </form> */}
-          </div>          
+          </div>  
+          </div>        
         </header>
 
 
@@ -191,8 +173,8 @@ class App extends Component {
                   tags = <p className="tags">{'#' + item.item_data.tags.join(' #')}</p>
                 }
 
-                //imageTag = item.item_data.image.medium;
-                imageTag = 'https://scontent-lht6-1.cdninstagram.com/vp/b8bcc77658eadac2016a94c39ed43c90/5D2F8FEF/t51.2885-15/e15/10598470_1480439188872772_1890435781_n.jpg?_nc_ht=scontent-lht6-1.cdninstagram.com'
+                imageTag = item.item_data.image.medium;
+                //imageTag = 'https://scontent-lht6-1.cdninstagram.com/vp/b8bcc77658eadac2016a94c39ed43c90/5D2F8FEF/t51.2885-15/e15/10598470_1480439188872772_1890435781_n.jpg?_nc_ht=scontent-lht6-1.cdninstagram.com'
               }
 
               if(item.service_name === "Twitter"){
@@ -211,21 +193,19 @@ class App extends Component {
 
               return(
                 <div className="tile" key={index}>
-                <div className="tilecontainer">
-                
-                {tagicon}
-                <div className="tilecontent">
-                  {/* <h4>Feedtype : {item.service_name}</h4> */}
-                  
-                  <img onError={this.addDefaultSrc.bind(this, item.service_name)} src={imageTag} />   
-                  {userName}               
-                  <p dangerouslySetInnerHTML={createMarkup(bodytext)} />
-                  {link}
-                  {tags}
-                  </div>
-                </div>
-                
-                  
+                  <div className="tilecontainer">                  
+                    {tagicon}
+                    <div className="tilecontent">                 
+                      <div className="imageblock">
+                        <img onError={this.addDefaultSrc.bind(this, item.service_name)} src={imageTag} />  
+                      </div> 
+                      {userName}               
+                      <p dangerouslySetInnerHTML={createMarkup(bodytext)} />
+                      {link}
+                      {tags}
+                      <p className="timestamp">Updated : {this.state.timestamp}</p>
+                    </div>
+                  </div>              
                 </div>                    
               )
             })}                
