@@ -67,7 +67,7 @@ hyphens: auto;
   margin-left: auto; 
 }
 
-.tags{
+.tags, .tags a{
   color: red;
 }
 
