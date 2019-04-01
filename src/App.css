@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:700i');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Exo+2');
 
 h4{
   margin: 0
@@ -16,13 +18,14 @@ h4{
 .mainmenu h3{
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Exo 2', sans-serif; */
   font-size: 1.8em;
 }
 
 .filter{
-  display: flex;
-  
+  display: flex;  
 }
 
 .imagecontainer{
@@ -33,25 +36,17 @@ h4{
   padding:20px;
 }
 
-.imagecontent p, .imagecontent a{
-  /* These are technically the same, but use both */
-overflow-wrap: break-word;
-word-wrap: break-word;
-
--ms-word-break: break-all;
-/* This is the dangerous one in WebKit, as it breaks things wherever */
-word-break: break-all;
-/* Instead use this non-standard one: */
-word-break: break-word;
-
-/* Adds a hyphen where the word breaks, if supported (No Blink) */
--ms-hyphens: auto;
--moz-hyphens: auto;
--webkit-hyphens: auto;
-hyphens: auto;
+.imagecontent p, .imagecontent a{  
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;  
+  word-break: break-all;  
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
-
-
 
 .tilecontainer{
   position: relative;
@@ -68,7 +63,7 @@ hyphens: auto;
 }
 
 .tags, .tags a{
-  color: red;
+  color: #d00000;
 }
 
 button{
@@ -98,9 +93,7 @@ button.active{
 .tagicon{
   position: absolute;
   top:-5px;
-  left:20px;
-  /* margin-top: -5px;
-  margin-left: 8px; */
+  left:20px;  
 }
 
 .timestamp{
@@ -108,12 +101,16 @@ button.active{
   color:#afa7a7;
 }
 
+.more{
+  margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 @media (min-width: 320px){
-  .tile{ 
-    
+  .tile{     
     display: inline-block;
-    margin: 0 0 1em;
-    
+    margin: 0 0 1em;    
     width: 100%;  
   }
 }
@@ -134,8 +131,7 @@ button.active{
   }  
 }
 
-@media (min-width: 768px){
-  
+@media (min-width: 768px){  
   .socialwall { 
     column-count: 3;    
   }
@@ -146,15 +142,9 @@ button.active{
   } 
 }
 @media (min-width: 1200px){
-  button{
-    background-color: #333;
-    color: white;
+  button{    
     width: 150px;
-    height: 40px;
-    border-top: 1px solid #4c4c4c;
-    border-bottom: 1px solid #4c4c4c;
-    border-left: 1px solid #4c4c4c;
-    border-right: none;
+    height: 40px;    
   }
   .socialwall { 
     column-count: 5;    

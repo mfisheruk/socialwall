@@ -187,7 +187,7 @@ class App extends Component {
               )
             })}                
         </div>
-        <button onClick={() => this.getMoreFeeds()}>More</button>
+        <button className="more" onClick={() => this.getMoreFeeds()}>More</button>
         </div>
         </div>
       </div>
