@@ -13,8 +13,7 @@ class App extends Component {
     this.state = {
       feedData : [],
       currentFilter: "",
-      timestamp: new Date().toLocaleTimeString('en-GB', { hour: "numeric", minute: "numeric"}),
-      isLoaded : true      
+      timestamp: new Date().toLocaleTimeString('en-GB', { hour: "numeric", minute: "numeric"})            
     }
   }  
 
@@ -28,7 +27,7 @@ class App extends Component {
         .then(res => res.json())
         .then(resitems => resitems.items)        
         .then(dateorder => dateorder.sort((a,b) => new Date(a.item_published).getTime() - new Date(b.item_published).getTime()))
-        .then(feedData=> this.setState({feedData: feedData}, function(){console.log(this.state.feedData)}))  
+        .then(feedData=> this.setState({feedData: feedData}))  
         .then(this.setState({currentFilter : ""}))
     }
     catch{
@@ -50,20 +49,14 @@ class App extends Component {
     }    
   }
 
-  // filterInstagram(filter){    
-  //   var filteredItems = this.state.feedData.filter(item => item.service_name === filter);    
-  //   this.setState({feedData : filteredItems})
-  // }
-
-  getMoreFeeds = async(req, res) => {   
-    console.log(this.state.feedData) 
+  getMoreFeeds = async(req, res) => { 
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
         .then(resitems => this.state.currentFilter !== "" ? resitems.items.filter(tweet => tweet.service_name === this.state.currentFilter) : resitems.items) 
         .then(combine =>  [...this.state.feedData, ...combine])
         .then(dateorder => dateorder.sort((a,b) => new Date(a.item_published).getTime() - new Date(b.item_published).getTime()))   
-        .then(moreFeeds => this.setState({feedData: moreFeeds}, function(){console.log(this.state.feedData)}))        
+        .then(moreFeeds => this.setState({feedData: moreFeeds}))        
     }
     catch{
       
@@ -81,6 +74,9 @@ class App extends Component {
       case "Instagram":
         e.target.src = instagramLogo
         break;
+      case "Manual":
+        e.target.src = bullringLogo
+        break;
       default:
         e.target.src = bullringLogo
     }        
@@ -94,37 +90,17 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <div className="mainmenu">
-          <h3>Autumn Fashion Fix</h3>
+          <div className="mainmenu">
+            <h3>Autumn Fashion Fix</h3>
 
-        <div className="filters">
-          <button onClick={() => this.getFeedData()} className={this.state.currentFilter === "" ? "active": ""}>All Feeds</button>
-          <button onClick={() => this.filterItems("Manual")} className={this.state.currentFilter === "Manual" ? "active": ""}>Manual Feeds</button>
-          <button onClick={() => this.filterItems("Twitter")} className={this.state.currentFilter === "Twitter" ? "active": ""}>Twitter</button>          
-          <button onClick={() => this.filterItems("Instagram")} className={this.state.currentFilter === "Instagram" ? "active": ""}>Instagram</button>
-
-          {/* <form onSubmit={this.getFeedData}>
-            <label>
-              <input type="radio" value="" checked={this.state.currentFilter === ""} onChange={this.getFeedData}/>
-              All
-            </label>
-            <label>
-              <input type="radio" value="Twitter" checked={this.state.currentFilter === "Twitter"} onChange={this.filterItems("Twitter")}/>
-              Twitter
-            </label>
-            <label>
-              <input type="radio" value="Manual" checked={this.state.currentFilter === "Manual"} onChange={this.filterItems("Manual")}/>
-              Manual
-            </label>
-            <label>
-              <input type="radio" value="Instagram" checked={this.state.currentFilter === "Instagram"} onChange={this.filterItems("Instagram")}/>
-              Instagram
-            </label>            
-          </form> */}
-          </div>  
+            <div className="filters">
+              <button onClick={() => this.getFeedData()} className={this.state.currentFilter === "" ? "active": ""}>All Feeds</button>
+              <button onClick={() => this.filterItems("Manual")} className={this.state.currentFilter === "Manual" ? "active": ""}>Manual Feeds</button>
+              <button onClick={() => this.filterItems("Twitter")} className={this.state.currentFilter === "Twitter" ? "active": ""}>Twitter</button>          
+              <button onClick={() => this.filterItems("Instagram")} className={this.state.currentFilter === "Instagram" ? "active": ""}>Instagram</button>          
+            </div>  
           </div>        
         </header>
-
 
         <div>
         <div className="imagecontainer">
@@ -160,8 +136,8 @@ class App extends Component {
 
                 bodytext = item.item_data.tweet.replace(/([@#])([a-z\d_]+)/ig, function(_, marker, tag) {
                   if (marker === "@")
-                    return `<a href="https://www.twitter.com/${tag}">@${tag}</a>`;
-                  return `<a href="https://twitter.com/hashtag/${tag}?src=hash">#${tag}</a>`;
+                    return `<a href="https://www.twitter.com/${tag}" target="_blank">@${tag}</a>`;
+                  return `<a href="https://twitter.com/hashtag/${tag}?src=hash" target="_blank">#${tag}</a>`;
                 });
 
                 tagicon = <img src={twittertag} className="tagicon" alt={`${item.service_name} icon graphic`}/>;                 

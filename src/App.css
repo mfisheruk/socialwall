@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:700i');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Exo+2');
 
 h4{
   margin: 0
@@ -17,10 +15,8 @@ h4{
 
 .mainmenu h3{
   margin: 0;
-  padding: 0;
-  /* font-family: 'Roboto', sans-serif; */
-  font-family: 'Open Sans', sans-serif;
-  /* font-family: 'Exo 2', sans-serif; */
+  padding: 0;  
+  font-family: 'Open Sans', sans-serif;  
   font-size: 1.8em;
 }
 
@@ -75,8 +71,7 @@ button{
   border-top: 1px solid #4c4c4c;
   border-bottom: 1px solid #4c4c4c;
   border-left: 1px solid #4c4c4c;
-  border-right: none;
-  
+  border-right: none;  
 }
 
 button:last-child{
@@ -84,8 +79,7 @@ button:last-child{
 }
 
 button.active{
-  background-color: #4c4c4c;
-	
+  background-color: #4c4c4c;	
 }
 
 .tilecontent{
@@ -105,8 +99,8 @@ button.active{
 
 .more{
   margin-left: auto;
-    margin-right: auto;
-    display: block;
+  margin-right: auto;
+  display: block;
 }
 
 button:focus{
@@ -139,8 +133,7 @@ button:focus{
   
 }
 
-@media (min-width: 576px){
-  
+@media (min-width: 576px){  
   .socialwall { 
     column-count: 2;
     column-gap: 1em;
@@ -155,8 +148,7 @@ button:focus{
     flex-direction: row;
   }
   .filters button{
-    margin-top: 0;
-    
+    margin-top: 0;    
   }
 }
 @media (min-width: 992px){
@@ -173,12 +165,7 @@ button:focus{
     column-count: 4;    
   } 
 }
-@media (min-width: 1200px){
-  .filter button{    
-    width: 150px;
-    height: 40px; 
-       
-  }
+@media (min-width: 1200px){  
   .socialwall { 
     column-count: 5;    
   }
