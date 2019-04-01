@@ -20,14 +20,15 @@ class App extends Component {
 
   componentDidMount(){  
     this.getFeedData();    
-  } 
+  }   
 
   getFeedData = async(req, res) => {
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
-        .then(resitems => resitems.items)
-        .then(feedData=> this.setState({feedData: feedData}))  
+        .then(resitems => resitems.items)        
+        .then(dateorder => dateorder.sort((a,b) => new Date(a.item_published).getTime() - new Date(b.item_published).getTime()))
+        .then(feedData=> this.setState({feedData: feedData}, function(){console.log(this.state.feedData)}))  
         .then(this.setState({currentFilter : ""}))
     }
     catch{
@@ -39,7 +40,8 @@ class App extends Component {
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
-        .then(resitems => resitems.items.filter(filtereditem => filtereditem.service_name === filter))    
+        .then(resitems => resitems.items.filter(filtereditem => filtereditem.service_name === filter)) 
+        .then(dateorder => dateorder.sort((a,b) => new Date(a.item_published).getTime() - new Date(b.item_published).getTime()))   
         .then(feedData=> this.setState({feedData: feedData})) 
         .then(this.setState({currentFilter : filter}))         
     }
@@ -53,12 +55,15 @@ class App extends Component {
   //   this.setState({feedData : filteredItems})
   // }
 
-  getMoreFeeds = async(req, res) => {    
+  getMoreFeeds = async(req, res) => {   
+    console.log(this.state.feedData) 
     try{
       await fetch('http://private-cc77e-aff.apiary-mock.com/posts')
         .then(res => res.json())
-        .then(resitems => this.state.currentFilter !== "" ? resitems.items.filter(tweet => tweet.service_name === this.state.currentFilter) : resitems.items)    
-        .then(moreFeeds => this.setState({feedData: [...this.state.feedData, ...moreFeeds]}))        
+        .then(resitems => this.state.currentFilter !== "" ? resitems.items.filter(tweet => tweet.service_name === this.state.currentFilter) : resitems.items) 
+        .then(combine =>  [...this.state.feedData, ...combine])
+        .then(dateorder => dateorder.sort((a,b) => new Date(a.item_published).getTime() - new Date(b.item_published).getTime()))   
+        .then(moreFeeds => this.setState({feedData: moreFeeds}, function(){console.log(this.state.feedData)}))        
     }
     catch{
       
@@ -181,6 +186,7 @@ class App extends Component {
                       {tags.length > 0 ? <p className="tags" dangerouslySetInnerHTML={createMarkup(tags)} /> : ""}
                       
                       <p className="timestamp">Updated : {this.state.timestamp}</p>
+                      <p>{item.item_published}</p>
                     </div>
                   </div>              
                 </div>                    
