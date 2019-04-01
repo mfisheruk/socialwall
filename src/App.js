@@ -99,8 +99,8 @@ class App extends Component {
 
         <div className="filters">
           <button onClick={() => this.getFeedData()} className={this.state.currentFilter === "" ? "active": ""}>All Feeds</button>
-          <button onClick={() => this.filterItems("Twitter")} className={this.state.currentFilter === "Twitter" ? "active": ""}>Tweets</button>
-          <button onClick={() => this.filterItems("Manual")} className={this.state.currentFilter === "Manual" ? "active": ""}>Manual feeds</button>
+          <button onClick={() => this.filterItems("Manual")} className={this.state.currentFilter === "Manual" ? "active": ""}>Manual Feeds</button>
+          <button onClick={() => this.filterItems("Twitter")} className={this.state.currentFilter === "Twitter" ? "active": ""}>Twitter</button>          
           <button onClick={() => this.filterItems("Instagram")} className={this.state.currentFilter === "Instagram" ? "active": ""}>Instagram</button>
 
           {/* <form onSubmit={this.getFeedData}>
@@ -156,19 +156,22 @@ class App extends Component {
               }
 
               if(item.service_name === "Twitter"){
-                userName = <h4>{item.item_data.user.username}</h4>;
-                bodytext = item.item_data.tweet;
-                tagicon = <img src={twittertag} className="tagicon" alt={`${item.service_name} icon graphic`}/>;
+                userName = <h4>{item.item_data.user.username}</h4>;               
 
-                //Regex to parse twitter hashtags
-                //bodytext = item.item_data.tweet.replace(/(^|\s)(#[a-z\d-]+)/ig, "$1<a href='https://twitter.com/hashtag/$2?src=hash' class='hash_tag'>$2</a>"); 
+                bodytext = item.item_data.tweet.replace(/([@#])([a-z\d_]+)/ig, function(_, marker, tag) {
+                  if (marker === "@")
+                    return `<a href="https://www.twitter.com/${tag}">@${tag}</a>`;
+                  return `<a href="https://twitter.com/hashtag/${tag}?src=hash">#${tag}</a>`;
+                });
+
+                tagicon = <img src={twittertag} className="tagicon" alt={`${item.service_name} icon graphic`}/>;                 
               }
 
               if(item.service_name === "Manual"){
                 bodytext = item.item_data.text;
                 imageTag = item.item_data.image_url;
                 tagicon = <img src={afftag} className="tagicon" alt={`${item.service_name} icon graphic`}/>;
-                link = <a href={item.item_data.link} target="_blank">{item.item_data.link_text}</a>
+                link = <p className="bodytext"><a href={item.item_data.link}  target="_blank">{item.item_data.link_text}</a></p>
               }
 
               return(
@@ -181,12 +184,12 @@ class App extends Component {
                         {/* <img onError={this.addDefaultSrc.bind(this, item.service_name)} src={imageTag} srcset={srcset}/>  */}
                       </div> 
                       {userName}               
-                      <p dangerouslySetInnerHTML={createMarkup(bodytext)} />
+                      <p className="bodytext" dangerouslySetInnerHTML={createMarkup(bodytext)} />
                       {link}
                       {tags.length > 0 ? <p className="tags" dangerouslySetInnerHTML={createMarkup(tags)} /> : ""}
                       
                       <p className="timestamp">Updated : {this.state.timestamp}</p>
-                      <p>{item.item_published}</p>
+                      
                     </div>
                   </div>              
                 </div>                    

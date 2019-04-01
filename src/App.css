@@ -9,7 +9,7 @@ h4{
 .mainmenu{
   display: flex;
   flex-direction: row;
-  
+  border-bottom: 3px solid #d00000;
   background-color: black;
   color: #fff;
   justify-content: space-between
@@ -62,8 +62,9 @@ h4{
   margin-left: auto; 
 }
 
-.tags, .tags a{
+.tags, .tags a, .bodytext a{
   color: #d00000;
+  text-decoration: none;
 }
 
 button{
@@ -75,6 +76,7 @@ button{
   border-bottom: 1px solid #4c4c4c;
   border-left: 1px solid #4c4c4c;
   border-right: none;
+  
 }
 
 button:last-child{
@@ -107,44 +109,75 @@ button.active{
     display: block;
 }
 
+button:focus{
+  outline: none;
+}
+
 @media (min-width: 320px){
   .tile{     
     display: inline-block;
     margin: 0 0 1em;    
     width: 100%;  
   }
-}
+  .mainmenu{
+    flex-direction: column;
+  }
+  .filters button{
+    margin-top: 10px;
+    width:auto; 
+    padding:8px;
+    height:auto;
+    font-size: 0.8em;
+  }
 
-@media (min-width: 375px){
-  button{    
-    width: auto;
-    height: 40px;
-    padding-left:15px;
-    padding-right:15px;
+  .mainmenu h3{
+    font-size: 1.2em;
   }
 }
 
+@media (min-width: 375px){
+  
+}
+
 @media (min-width: 576px){
+  
   .socialwall { 
     column-count: 2;
     column-gap: 1em;
-  }  
+  }   
 }
 
 @media (min-width: 768px){  
   .socialwall { 
     column-count: 3;    
   }
+  .mainmenu{
+    flex-direction: row;
+  }
+  .filters button{
+    margin-top: 0;
+    
+  }
 }
 @media (min-width: 992px){
+  .filters button{
+    margin-top:0;
+    width: 150px;
+    height: 40px;
+    font-size: 0.9em;
+  }
+  .mainmenu h3{
+    font-size: 1.8em;
+  }
   .socialwall { 
     column-count: 4;    
   } 
 }
 @media (min-width: 1200px){
-  button{    
+  .filter button{    
     width: 150px;
-    height: 40px;    
+    height: 40px; 
+       
   }
   .socialwall { 
     column-count: 5;    
